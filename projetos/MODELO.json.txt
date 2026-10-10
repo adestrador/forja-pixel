@@ -1,0 +1,25 @@
+{
+  "slug": "nome-do-jogo-ptbr",
+  "name": "Nome do Jogo",
+  "title": "Tradução PT-BR de Nome do Jogo",
+  "kind": "Tradução",
+  "tag": "PT-BR completo",
+  "version": "1.0",
+  "intro": "Uma frase curta sobre o projeto.",
+  "description": "Descreva o que foi traduzido ou modificado.",
+  "art": "turing",
+  "compat": "PC · Windows · versão testada",
+  "category": "traducoes",
+  "features": [
+    "Primeiro destaque",
+    "Segundo destaque"
+  ],
+  "steps": [
+    "Baixe o arquivo na página de lançamentos.",
+    "Extraia o pacote e siga as instruções do repositório."
+  ],
+  "note": "Informe aqui uma ressalva de compatibilidade, se houver.",
+  "download": "https://github.com/adestrador/NOME-DO-REPOSITORIO/releases/latest",
+  "download_label": "Baixar tradução",
+  "repo": "https://github.com/adestrador/NOME-DO-REPOSITORIO"
+}

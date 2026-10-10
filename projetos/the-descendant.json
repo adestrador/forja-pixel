@@ -1,0 +1,31 @@
+{
+  "slug": "the-descendant",
+  "name": "The Descendant",
+  "title": "Tradução PT-BR de The Descendant",
+  "kind": "Tradução",
+  "tag": "PT-BR integral",
+  "version": "1.1",
+  "intro": "Tradução não oficial de todos os episódios, dos diálogos às telas do jogo.",
+  "description": "Tradução completa para português do Brasil, incluindo menus, tutoriais, documentos, escolhas, diálogos, abertura e recapitulações. O texto foi revisado para soar natural e preservar o contexto dos personagens.",
+  "image": null,
+  "gallery": [],
+  "art": "descendant",
+  "compat": "PC · Windows 64 bits · versão interna 1.0",
+  "category": "traducoes",
+  "features": [
+    "Diálogos, escolhas e documentos traduzidos",
+    "Abertura e recapitulações localizadas",
+    "Aplicador pequeno sem arquivos completos do jogo",
+    "Verificação prévia e opção de desinstalar"
+  ],
+  "steps": [
+    "Tenha uma instalação compatível do jogo e feche-o.",
+    "Baixe o aplicador v1.1 na página de lançamentos.",
+    "Execute o arquivo e selecione Descendant_Windows.exe se solicitado.",
+    "Aguarde a confirmação antes de abrir o jogo."
+  ],
+  "note": "Requer uma cópia legítima do jogo. O aplicador verifica os arquivos e não força a instalação em versões diferentes.",
+  "download": "https://github.com/adestrador/the-descendant-ptbr/releases/latest",
+  "download_label": "Baixar tradução",
+  "repo": "https://github.com/adestrador/the-descendant-ptbr"
+}

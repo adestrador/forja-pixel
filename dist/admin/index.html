@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <title>Editor de projetos | Forja Pixel</title>
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+  <style>
+    body { background: #0b121a; color: #e9eef3; }
+    .editor { max-width: 980px; margin: 0 auto; padding: 120px 24px 80px; }
+    .editor h1 { font-size: clamp(2rem, 5vw, 3.5rem); margin: 10px 0 12px; }
+    .editor p { color: #aebcc9; line-height: 1.65; }
+    .editor a { color: #edaf75; }
+    .editor-card { background: #121e29; border: 1px solid #2c3d4a; border-radius: 16px; padding: clamp(20px, 4vw, 36px); margin-top: 28px; }
+    .editor-card h2 { font-size: 1.3rem; margin: 0 0 18px; }
+    .editor-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 8px; font-size: .91rem; font-weight: 600; }
+    .field.wide { grid-column: 1 / -1; }
+    .field small { color: #aebcc9; font-weight: 400; }
+    .field input, .field textarea, .field select { width: 100%; min-height: 45px; background: #0b141d; color: #f7f8f9; border: 1px solid #3a4c5c; border-radius: 7px; padding: 10px 12px; font: inherit; }
+    .field textarea { min-height: 95px; resize: vertical; }
+    .field input:focus, .field textarea:focus, .field select:focus { outline: 2px solid #edaf75; outline-offset: 2px; }
+    .actions { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; margin-top: 25px; }
+    .editor button { cursor: pointer; border: 0; border-radius: 7px; background: #edaf75; color: #1b1510; padding: 13px 18px; font: inherit; font-weight: 700; }
+    .steps { padding-left: 24px; color: #aebcc9; line-height: 1.7; }
+    .steps li + li { margin-top: 7px; }
+    .status { color: #aebcc9; min-height: 1.5em; }
+    @media (max-width: 680px) { .editor-grid { grid-template-columns: 1fr; } .field.wide { grid-column: auto; } }
+  </style>
+</head>
+<body>
+  <header class="site-header"><div class="container nav-wrap"><a class="brand" href="../"><span class="brand-icon" aria-hidden="true"><i></i><i></i><i></i><i></i></span><span>FORJA<span class="brand-accent">PIXEL</span></span></a><nav><a href="../#projetos">Ver site ↗</a></nav></div></header>
+  <main class="editor">
+    <span class="section-kicker">ADMINISTRAÇÃO</span>
+    <h1>Editor de projetos</h1>
+    <p>Preencha a ficha, baixe o arquivo e envie-o ao repositório do site no GitHub. Só quem tem acesso de escrita ao repositório consegue publicar alterações.</p>
+    <section class="editor-card" aria-labelledby="select-title">
+      <h2 id="select-title">Escolha o projeto</h2>
+      <label class="field wide">Projeto existente ou novo
+        <select id="project-select"><option value="">Novo projeto</option></select>
+      </label>
+    </section>
+    <form id="project-form" class="editor-card">
+      <h2>Ficha do projeto</h2>
+      <div class="editor-grid">
+        <label class="field">Identificador (slug)<small>Minúsculas, números e hífens; define o endereço da página.</small><input name="slug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" placeholder="nome-do-jogo-ptbr"></label>
+        <label class="field">Nome do jogo ou ferramenta<input name="name" required placeholder="Nome do Jogo"></label>
+        <label class="field wide">Título descritivo<input name="title" required placeholder="Tradução PT-BR de Nome do Jogo"></label>
+        <label class="field">Tipo<input name="kind" required placeholder="Tradução"></label>
+        <label class="field">Destaque curto<input name="tag" required placeholder="PT-BR completo"></label>
+        <label class="field">Categoria<select name="category"><option value="traducoes">Traduções</option><option value="mods">Mods</option><option value="correcoes">Correções</option><option value="scripts">Scripts</option></select></label>
+        <label class="field">Versão<input name="version" required placeholder="1.0"></label>
+        <label class="field wide">Resumo da capa<textarea name="intro" required placeholder="Uma frase curta sobre o projeto."></textarea></label>
+        <label class="field wide">Descrição completa<textarea name="description" required placeholder="Descreva o que foi criado."></textarea></label>
+        <label class="field">Compatibilidade<input name="compat" required placeholder="PC · Windows · versão testada"></label>
+        <label class="field">Fundo decorativo<select name="art"><option value="turing">Tradução 1</option><option value="descendant">Tradução 2</option><option value="andromeda">Correção</option><option value="script">Script</option></select></label>
+        <label class="field wide">Destaques <small>Um por linha.</small><textarea name="features" required placeholder="Menus traduzidos&#10;Instalador incluído"></textarea></label>
+        <label class="field wide">Passos de instalação <small>Um por linha.</small><textarea name="steps" required placeholder="Baixe o arquivo.&#10;Execute o instalador."></textarea></label>
+        <label class="field wide">Aviso antes de instalar<textarea name="note" required placeholder="Informe requisitos ou limitações."></textarea></label>
+        <label class="field wide">Link do repositório<input name="repo" type="url" required placeholder="https://github.com/adestrador/nome-do-repositorio"></label>
+        <label class="field wide">Link de download<input name="download" type="url" required placeholder="https://github.com/adestrador/nome-do-repositorio/releases/latest"></label>
+        <label class="field">Texto do botão de download<input name="download_label" required placeholder="Baixar tradução"></label>
+      </div>
+      <div class="actions"><button type="submit">Baixar ficha .json</button><span class="status" id="status" role="status"></span></div>
+    </form>
+    <section class="editor-card">
+      <h2>Publicar no site</h2>
+      <ol class="steps">
+        <li>Abra a <a href="https://github.com/adestrador/forja-pixel/tree/main/projetos" target="_blank" rel="noopener noreferrer">pasta de projetos no GitHub</a>.</li>
+        <li>Para um novo projeto, use <strong>Add file → Upload files</strong>. Para atualizar um existente, substitua o arquivo com o mesmo nome nessa pasta.</li>
+        <li>Confirme em <strong>Commit changes</strong>. A publicação automática começa na aba <strong>Actions</strong>. Se mudar o identificador de um projeto existente, apague também o arquivo antigo.</li>
+      </ol>
+    </section>
+  </main>
+  <script>
+    const form = document.querySelector('#project-form');
+    const select = document.querySelector('#project-select');
+    const status = document.querySelector('#status');
+    let projects = [];
+    const list = value => value.split('\n').map(x => x.trim()).filter(Boolean);
+    fetch('../projetos.json').then(r => {
+      if (!r.ok) throw new Error('Falha ao carregar projetos.');
+      return r.json();
+    }).then(data => {
+      projects = data;
+      for (const project of data) select.add(new Option(project.title, project.slug));
+    }).catch(() => { status.textContent = 'Não foi possível carregar os projetos publicados.'; });
+    select.addEventListener('change', () => {
+      form.reset();
+      status.textContent = '';
+      const project = projects.find(p => p.slug === select.value);
+      if (!project) return;
+      for (const [key, value] of Object.entries(project)) {
+        const field = form.elements.namedItem(key);
+        if (field) field.value = Array.isArray(value) ? value.join('\n') : value;
+      }
+    });
+    form.addEventListener('submit', event => {
+      event.preventDefault();
+      if (!form.reportValidity()) return;
+      const data = Object.fromEntries(new FormData(form));
+      data.slug = data.slug.trim();
+      for (const key of ['features', 'steps']) data[key] = list(data[key]);
+      if (!data.features.length || !data.steps.length) {
+        status.textContent = 'Preencha ao menos um destaque e um passo de instalação.';
+        return;
+      }
+      const blob = new Blob([JSON.stringify(data, null, 2) + '\n'], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `${data.slug}.json`;
+      link.click();
+      setTimeout(() => URL.revokeObjectURL(url), 1000);
+      status.textContent = `Arquivo ${link.download} pronto. Envie-o ao GitHub para publicar.`;
+    });
+  </script>
+</body>
+</html>

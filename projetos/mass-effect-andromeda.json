@@ -1,0 +1,31 @@
+{
+  "slug": "mass-effect-andromeda",
+  "name": "Mass Effect: Andromeda",
+  "title": "Correção da tela preta PT-BR em Mass Effect: Andromeda",
+  "kind": "Correção",
+  "tag": "Tela preta PT-BR",
+  "version": "1.0.0",
+  "intro": "Correção pontual para a tela preta sem áudio na versão 1.10 em português.",
+  "description": "Uma ferramenta que identifica um arquivo de localização PT-BR incompatível, faz cópia de segurança e corrige apenas o pacote necessário usando dados da própria instalação. Ela confere o resultado antes de concluir.",
+  "image": null,
+  "gallery": [],
+  "art": "andromeda",
+  "compat": "PC · Windows · versão 1.10 específica",
+  "category": "correcoes",
+  "features": [
+    "Verificação estrita do arquivo antes de alterar",
+    "Cópia de segurança automática",
+    "Sem conexão com a internet ou executáveis de terceiros",
+    "Restauração pelo arquivo incluído no pacote"
+  ],
+  "steps": [
+    "Extraia o arquivo da página de lançamentos.",
+    "Execute Aplicar_Correcao.bat.",
+    "Selecione a pasta onde está MassEffectAndromeda.exe.",
+    "Aguarde a confirmação; para desfazer, use Restaurar_Original.bat."
+  ],
+  "note": "Esta correção só se aplica ao conjunto de arquivos defeituosos documentado no repositório. Se a assinatura não coincidir, a ferramenta recusa a operação.",
+  "download": "https://github.com/adestrador/correcao-tela-preta-mea-ptbr/releases/latest",
+  "download_label": "Baixar correção",
+  "repo": "https://github.com/adestrador/correcao-tela-preta-mea-ptbr"
+}

@@ -1,0 +1,126 @@
+[
+  {
+    "slug": "mass-effect-andromeda",
+    "name": "Mass Effect: Andromeda",
+    "title": "Correção da tela preta PT-BR em Mass Effect: Andromeda",
+    "kind": "Correção",
+    "tag": "Tela preta PT-BR",
+    "version": "1.0.0",
+    "intro": "Correção pontual para a tela preta sem áudio na versão 1.10 em português.",
+    "description": "Uma ferramenta que identifica um arquivo de localização PT-BR incompatível, faz cópia de segurança e corrige apenas o pacote necessário usando dados da própria instalação. Ela confere o resultado antes de concluir.",
+    "image": null,
+    "gallery": [],
+    "art": "andromeda",
+    "compat": "PC · Windows · versão 1.10 específica",
+    "category": "correcoes",
+    "features": [
+      "Verificação estrita do arquivo antes de alterar",
+      "Cópia de segurança automática",
+      "Sem conexão com a internet ou executáveis de terceiros",
+      "Restauração pelo arquivo incluído no pacote"
+    ],
+    "steps": [
+      "Extraia o arquivo da página de lançamentos.",
+      "Execute Aplicar_Correcao.bat.",
+      "Selecione a pasta onde está MassEffectAndromeda.exe.",
+      "Aguarde a confirmação; para desfazer, use Restaurar_Original.bat."
+    ],
+    "note": "Esta correção só se aplica ao conjunto de arquivos defeituosos documentado no repositório. Se a assinatura não coincidir, a ferramenta recusa a operação.",
+    "download": "https://github.com/adestrador/correcao-tela-preta-mea-ptbr/releases/latest",
+    "download_label": "Baixar correção",
+    "repo": "https://github.com/adestrador/correcao-tela-preta-mea-ptbr"
+  },
+  {
+    "slug": "shrtslug-flow-assistant",
+    "name": "Assistente de Fluxo Shrtslug",
+    "title": "Script de automação para páginas Shrtslug",
+    "kind": "Script",
+    "tag": "Automação de páginas",
+    "version": "1.2.0",
+    "intro": "Automatiza etapas repetitivas em páginas compatíveis e respeita os temporizadores do site.",
+    "description": "Um script de usuário que detecta botões disponíveis em páginas de fluxo Shrtslug, aguarda os temporizadores e mostra o andamento em português. CAPTCHA e outras verificações humanas continuam manuais.",
+    "image": null,
+    "gallery": [],
+    "art": "script",
+    "compat": "Navegador com gerenciador de scripts de usuário",
+    "category": "scripts",
+    "features": [
+      "Aguarda os temporizadores sem pulá-los",
+      "Continua etapas disponíveis quando possível",
+      "Mantém verificações humanas manuais",
+      "Sem coleta de dados ou carregamento de código remoto"
+    ],
+    "steps": [
+      "Instale um gerenciador de scripts de usuário compatível no navegador.",
+      "Abra o arquivo de instalação pelo botão abaixo e confirme no gerenciador.",
+      "Acesse um dos domínios compatíveis listados no repositório.",
+      "Acompanhe o indicador de status na página."
+    ],
+    "note": "O projeto é uma versão pública estável sem cronograma de manutenção. Use-o somente onde for permitido pelos termos dos sites.",
+    "download": "https://raw.githubusercontent.com/adestrador/shrtslug-flow-assistant/main/shrtslug-flow-assistant.user.js",
+    "download_label": "Instalar script",
+    "repo": "https://github.com/adestrador/shrtslug-flow-assistant"
+  },
+  {
+    "slug": "the-descendant",
+    "name": "The Descendant",
+    "title": "Tradução PT-BR de The Descendant",
+    "kind": "Tradução",
+    "tag": "PT-BR integral",
+    "version": "1.1",
+    "intro": "Tradução não oficial de todos os episódios, dos diálogos às telas do jogo.",
+    "description": "Tradução completa para português do Brasil, incluindo menus, tutoriais, documentos, escolhas, diálogos, abertura e recapitulações. O texto foi revisado para soar natural e preservar o contexto dos personagens.",
+    "image": null,
+    "gallery": [],
+    "art": "descendant",
+    "compat": "PC · Windows 64 bits · versão interna 1.0",
+    "category": "traducoes",
+    "features": [
+      "Diálogos, escolhas e documentos traduzidos",
+      "Abertura e recapitulações localizadas",
+      "Aplicador pequeno sem arquivos completos do jogo",
+      "Verificação prévia e opção de desinstalar"
+    ],
+    "steps": [
+      "Tenha uma instalação compatível do jogo e feche-o.",
+      "Baixe o aplicador v1.1 na página de lançamentos.",
+      "Execute o arquivo e selecione Descendant_Windows.exe se solicitado.",
+      "Aguarde a confirmação antes de abrir o jogo."
+    ],
+    "note": "Requer uma cópia legítima do jogo. O aplicador verifica os arquivos e não força a instalação em versões diferentes.",
+    "download": "https://github.com/adestrador/the-descendant-ptbr/releases/latest",
+    "download_label": "Baixar tradução",
+    "repo": "https://github.com/adestrador/the-descendant-ptbr"
+  },
+  {
+    "slug": "the-turing-test",
+    "name": "The Turing Test",
+    "title": "Tradução PT-BR de The Turing Test",
+    "kind": "Tradução",
+    "tag": "PT-BR completo",
+    "version": "1.0",
+    "intro": "Menus em português e legendas maiores para uma experiência mais confortável no PC.",
+    "description": "O pacote aproveita os diálogos e textos em português já presentes no jogo e traduz as telas que ainda apareciam em inglês: menu principal, pausa, confirmações, configurações e carregamento. Também aumenta o tamanho das legendas.",
+    "image": null,
+    "gallery": [],
+    "art": "turing",
+    "compat": "PC · Windows · jogo original instalado",
+    "category": "traducoes",
+    "features": [
+      "Menus e configurações traduzidos",
+      "Legendas ampliadas de 14 para 21",
+      "Instalador com verificação de compatibilidade",
+      "Cópia de segurança e restauração automáticas"
+    ],
+    "steps": [
+      "Baixe o pacote na página de lançamentos e extraia todo o ZIP.",
+      "Feche o jogo e execute INSTALAR.bat.",
+      "Confirme a pasta detectada ou informe a pasta principal do jogo.",
+      "Aguarde a mensagem de instalação concluída."
+    ],
+    "note": "O pacote foi testado com os arquivos de PC disponíveis em 26/09/2026. O instalador interrompe a operação se encontrar arquivos incompatíveis.",
+    "download": "https://github.com/adestrador/the-turing-test-ptbr-completo/releases/latest",
+    "download_label": "Baixar tradução",
+    "repo": "https://github.com/adestrador/the-turing-test-ptbr-completo"
+  }
+]

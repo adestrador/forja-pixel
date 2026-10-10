@@ -1,0 +1,31 @@
+{
+  "slug": "the-turing-test",
+  "name": "The Turing Test",
+  "title": "Tradução PT-BR de The Turing Test",
+  "kind": "Tradução",
+  "tag": "PT-BR completo",
+  "version": "1.0",
+  "intro": "Menus em português e legendas maiores para uma experiência mais confortável no PC.",
+  "description": "O pacote aproveita os diálogos e textos em português já presentes no jogo e traduz as telas que ainda apareciam em inglês: menu principal, pausa, confirmações, configurações e carregamento. Também aumenta o tamanho das legendas.",
+  "image": null,
+  "gallery": [],
+  "art": "turing",
+  "compat": "PC · Windows · jogo original instalado",
+  "category": "traducoes",
+  "features": [
+    "Menus e configurações traduzidos",
+    "Legendas ampliadas de 14 para 21",
+    "Instalador com verificação de compatibilidade",
+    "Cópia de segurança e restauração automáticas"
+  ],
+  "steps": [
+    "Baixe o pacote na página de lançamentos e extraia todo o ZIP.",
+    "Feche o jogo e execute INSTALAR.bat.",
+    "Confirme a pasta detectada ou informe a pasta principal do jogo.",
+    "Aguarde a mensagem de instalação concluída."
+  ],
+  "note": "O pacote foi testado com os arquivos de PC disponíveis em 26/09/2026. O instalador interrompe a operação se encontrar arquivos incompatíveis.",
+  "download": "https://github.com/adestrador/the-turing-test-ptbr-completo/releases/latest",
+  "download_label": "Baixar tradução",
+  "repo": "https://github.com/adestrador/the-turing-test-ptbr-completo"
+}

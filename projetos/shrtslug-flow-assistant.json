@@ -1,0 +1,31 @@
+{
+  "slug": "shrtslug-flow-assistant",
+  "name": "Assistente de Fluxo Shrtslug",
+  "title": "Script de automação para páginas Shrtslug",
+  "kind": "Script",
+  "tag": "Automação de páginas",
+  "version": "1.2.0",
+  "intro": "Automatiza etapas repetitivas em páginas compatíveis e respeita os temporizadores do site.",
+  "description": "Um script de usuário que detecta botões disponíveis em páginas de fluxo Shrtslug, aguarda os temporizadores e mostra o andamento em português. CAPTCHA e outras verificações humanas continuam manuais.",
+  "image": null,
+  "gallery": [],
+  "art": "script",
+  "compat": "Navegador com gerenciador de scripts de usuário",
+  "category": "scripts",
+  "features": [
+    "Aguarda os temporizadores sem pulá-los",
+    "Continua etapas disponíveis quando possível",
+    "Mantém verificações humanas manuais",
+    "Sem coleta de dados ou carregamento de código remoto"
+  ],
+  "steps": [
+    "Instale um gerenciador de scripts de usuário compatível no navegador.",
+    "Abra o arquivo de instalação pelo botão abaixo e confirme no gerenciador.",
+    "Acesse um dos domínios compatíveis listados no repositório.",
+    "Acompanhe o indicador de status na página."
+  ],
+  "note": "O projeto é uma versão pública estável sem cronograma de manutenção. Use-o somente onde for permitido pelos termos dos sites.",
+  "download": "https://raw.githubusercontent.com/adestrador/shrtslug-flow-assistant/main/shrtslug-flow-assistant.user.js",
+  "download_label": "Instalar script",
+  "repo": "https://github.com/adestrador/shrtslug-flow-assistant"
+}
