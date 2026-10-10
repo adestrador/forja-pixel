@@ -4,6 +4,7 @@ import html
 import json
 import os
 import re
+import unicodedata
 import urllib.request
 from pathlib import Path
 
@@ -41,6 +42,25 @@ TOPIC_CATEGORIES = {
     "forja-script": ("scripts", "Script"),
 }
 
+NAME_PATTERNS = (
+    (r"\b(?:traducao|traducoes|localizac\w*|pt\s*br|portugues)\b", ("traducoes", "Tradução")),
+    (r"\b(?:correc\w*|corrig\w*|fix|patch|bugfix)\b", ("correcoes", "Correção")),
+    (r"\b(?:userscript|scripts?|automac\w*|tampermonkey|greasemonkey)\b", ("scripts", "Script")),
+    (r"\b(?:mods?|modificac\w*|add\s*on)\b", ("mods", "Mod")),
+)
+
+def infer_category(repo: dict) -> tuple[str, str]:
+    # O nome tem prioridade: "correcao-jogo-ptbr" é uma correção, por exemplo.
+    for source in (repo["name"], repo.get("description") or ""):
+        plain = unicodedata.normalize("NFKD", source.lower())
+        plain = "".join(char for char in plain if not unicodedata.combining(char))
+        plain = re.sub(r"[._-]+", " ", plain)
+        matches = [(match.start(), category) for pattern, category in NAME_PATTERNS
+                   if (match := re.search(pattern, plain))]
+        if matches:
+            return min(matches, key=lambda item: item[0])[1]
+    return ("outros", "Projeto")
+
 def sync_github_projects(curated: list[dict]) -> list[dict]:
     if os.environ.get("SYNC_GITHUB_REPOS") != "1":
         return []
@@ -66,21 +86,8 @@ def sync_github_projects(curated: list[dict]) -> list[dict]:
                 name.lower() == "forja-pixel" or name.lower() in known):
                 continue
             known.add(name.lower())
-            terms = (name + " " + (repo.get("description") or "") + " " + " ".join(repo.get("topics") or [])).lower()
-            normalized = terms.translate(str.maketrans("áàâãéêíóôõúç", "aaaaeeiooouc"))
             selected_topic = next((TOPIC_CATEGORIES[t] for t in (repo.get("topics") or []) if t in TOPIC_CATEGORIES), None)
-            if selected_topic:
-                category, kind = selected_topic
-            elif re.search(r"traducao|pt.?br|localizac|portugues", normalized):
-                category, kind = "traducoes", "Tradução"
-            elif re.search(r"script|userscript|automac", normalized):
-                category, kind = "scripts", "Script"
-            elif re.search(r"correcao|corrigir|fix|patch", normalized):
-                category, kind = "correcoes", "Correção"
-            elif re.search(r"mod\b|mods\b", normalized):
-                category, kind = "mods", "Mod"
-            else:
-                category, kind = "outros", "Projeto"
+            category, kind = selected_topic or infer_category(repo)
             readable = re.sub(r"[._-]+", " ", name).strip()
             readable = re.sub(r"\s+pt[ -]?br\b", "", readable, flags=re.I).strip()
             title = f"Tradução PT-BR de {readable}" if kind == "Tradução" else readable if kind == "Projeto" else f"{kind}: {readable}"
