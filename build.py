@@ -37,7 +37,8 @@ def load_projects() -> list[dict]:
 def sync_github_projects(curated: list[dict]) -> list[dict]:
     if os.environ.get("SYNC_GITHUB_REPOS") != "1":
         return []
-    known = {p["repo"].rstrip("/").split("/")[-1].lower() for p in curated}
+    curated_by_repo = {p["repo"].rstrip("/").split("/")[-1].lower(): p for p in curated}
+    known = set(curated_by_repo)
     token = os.environ.get("GITHUB_TOKEN", "")
     projects = []
     for page in range(1, 12):
@@ -51,6 +52,8 @@ def sync_github_projects(curated: list[dict]) -> list[dict]:
             raise ValueError("Resposta inesperada da API do GitHub")
         for repo in repos:
             name = repo["name"]
+            if repo["owner"]["login"].lower() == "adestrador" and name.lower() in curated_by_repo:
+                curated_by_repo[name.lower()]["created_at"] = repo["created_at"]
             if (repo["owner"]["login"].lower() != "adestrador" or repo.get("fork") or
                 repo.get("archived") or repo.get("disabled") or repo.get("private") or
                 name.lower() == "forja-pixel" or name.lower() in known):
@@ -74,7 +77,7 @@ def sync_github_projects(curated: list[dict]) -> list[dict]:
             projects.append({"slug": "github-" + name.lower(), "name": readable, "title": title,
                              "kind": kind, "category": category,
                              "intro": repo.get("description") or "Projeto publicado no GitHub.",
-                             "repo": repo["html_url"], "automatic": True})
+                             "repo": repo["html_url"], "created_at": repo["created_at"], "automatic": True})
         if len(repos) < 100:
             break
     else:
@@ -82,7 +85,8 @@ def sync_github_projects(curated: list[dict]) -> list[dict]:
     return projects
 
 CURATED = load_projects()
-PROJECTS = CURATED + sync_github_projects(CURATED)
+AUTOMATIC = sync_github_projects(CURATED)
+PROJECTS = sorted(CURATED + AUTOMATIC, key=lambda p: p.get("created_at", ""), reverse=True)
 (OUT / "projetos.json").write_text(json.dumps(CURATED, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
 def e(value: str) -> str:

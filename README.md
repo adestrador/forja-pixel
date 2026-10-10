@@ -15,7 +15,7 @@ O repositório do site é separado dos repositórios dos mods. Estes continuam s
 
 Depois de criar ou alterar um projeto público, abra [Publicar Forja Pixel](https://github.com/adestrador/forja-pixel/actions/workflows/pages.yml) na sua conta GitHub. Clique em **Run workflow** (ou **Executar fluxo de trabalho**) e confirme em **Run workflow**. Ao terminar a execução, o site estará atualizado. Você não precisa copiar o mod, editar o site nem repetir isso todos os dias.
 
-O fluxo consulta os repositórios públicos de `adestrador`. Repositórios derivados (forks), arquivados e o próprio `forja-pixel` ficam fora. Um projeto novo ganha um card e uma página estática própria, com título, descrição, link ao GitHub, URL própria e entrada no mapa do site. O visitante vê a versão já publicada; a visita não aciona a sincronização.
+O fluxo consulta os repositórios públicos de `adestrador`. Repositórios derivados (forks), arquivados e o próprio `forja-pixel` ficam fora. Um projeto novo ganha um card e uma página estática própria, com título, descrição, link ao GitHub, URL própria e entrada no mapa do site. A lista mostra os projetos pela data de criação do repositório, dos mais novos para os mais antigos. O visitante vê a versão já publicada; a visita não aciona a sincronização.
 
 Uma ficha criada assim é básica: o site não consegue adivinhar compatibilidade e instruções de instalação. Para uma página completa como as quatro iniciais, use o editor abaixo. Se a API do GitHub falhar durante a publicação, o fluxo falha e a versão anterior do site continua disponível. A existência de uma página própria facilita sua descoberta por buscadores, mas a indexação não é garantida.
 
