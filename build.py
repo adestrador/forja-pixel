@@ -34,6 +34,13 @@ def load_projects() -> list[dict]:
         raise ValueError("Nenhum arquivo encontrado em projetos/*.json")
     return projects
 
+TOPIC_CATEGORIES = {
+    "forja-traducao": ("traducoes", "Tradução"),
+    "forja-mod": ("mods", "Mod"),
+    "forja-correcao": ("correcoes", "Correção"),
+    "forja-script": ("scripts", "Script"),
+}
+
 def sync_github_projects(curated: list[dict]) -> list[dict]:
     if os.environ.get("SYNC_GITHUB_REPOS") != "1":
         return []
@@ -61,7 +68,10 @@ def sync_github_projects(curated: list[dict]) -> list[dict]:
             known.add(name.lower())
             terms = (name + " " + (repo.get("description") or "") + " " + " ".join(repo.get("topics") or [])).lower()
             normalized = terms.translate(str.maketrans("áàâãéêíóôõúç", "aaaaeeiooouc"))
-            if re.search(r"traducao|pt.?br|localizac|portugues", normalized):
+            selected_topic = next((TOPIC_CATEGORIES[t] for t in (repo.get("topics") or []) if t in TOPIC_CATEGORIES), None)
+            if selected_topic:
+                category, kind = selected_topic
+            elif re.search(r"traducao|pt.?br|localizac|portugues", normalized):
                 category, kind = "traducoes", "Tradução"
             elif re.search(r"script|userscript|automac", normalized):
                 category, kind = "scripts", "Script"
