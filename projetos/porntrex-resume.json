@@ -1,0 +1,31 @@
+{
+  "slug": "porntrex-resume",
+  "name": "Porntrex — continuar por perfil",
+  "title": "Script para retomar a página de vídeos por perfil no Porntrex",
+  "kind": "Script",
+  "tag": "Retomada por perfil",
+  "version": "1.4.1",
+  "intro": "Salva a página de vídeos de cada perfil para continuar de onde você parou.",
+  "description": "Este script de usuário registra a posição da lista de vídeos separadamente para cada perfil. Quando você volta ao perfil, ele retoma a página salva e mantém a paginação no endereço, sem adicionar painéis à página.",
+  "image": null,
+  "gallery": [],
+  "art": "script",
+  "compat": "Navegador com gerenciador de scripts que ofereça as APIs GM modernas",
+  "category": "scripts",
+  "features": [
+    "Guarda a posição de cada perfil separadamente",
+    "Retoma a página da lista ao voltar ao perfil",
+    "Oferece comandos no menu para consultar, mudar ou zerar a posição",
+    "Não adiciona painel à página"
+  ],
+  "steps": [
+    "Instale um gerenciador de scripts compatível com as APIs GM modernas no navegador.",
+    "Clique em Instalar script e confirme a instalação no gerenciador.",
+    "Abra a lista de vídeos de um perfil no Porntrex e navegue normalmente.",
+    "Ao voltar ao mesmo perfil, a página da lista será retomada."
+  ],
+  "note": "O script guarda a página da lista, não o último vídeo assistido. Consulte o README para saber como usar os comandos do menu e conferir a compatibilidade.",
+  "download": "https://raw.githubusercontent.com/adestrador/porntrex-resume/main/porntrex-resume.user.js",
+  "download_label": "Instalar script",
+  "repo": "https://github.com/adestrador/porntrex-resume"
+}
