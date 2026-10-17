@@ -1,10 +1,12 @@
 from __future__ import annotations
 
 import html
+import base64
 import json
 import os
 import re
 import unicodedata
+import urllib.error
 import urllib.request
 from pathlib import Path
 
@@ -61,6 +63,46 @@ def infer_category(repo: dict) -> tuple[str, str]:
             return min(matches, key=lambda item: item[0])[1]
     return ("outros", "Projeto")
 
+def readme_summary(repo: dict, headers: dict) -> tuple[str, str, str]:
+    """Lê o título e a apresentação do README em português, quando disponíveis."""
+    url = f"https://api.github.com/repos/adestrador/{repo['name']}/readme"
+    try:
+        with urllib.request.urlopen(urllib.request.Request(url, headers=headers), timeout=25) as response:
+            payload = json.load(response)
+        markdown = base64.b64decode(payload["content"]).decode("utf-8")
+    except (urllib.error.URLError, KeyError, ValueError, UnicodeError) as error:
+        print(f"README indisponível para {repo['name']}: {error}")
+        return "", "", ""
+    heading = ""
+    for line in markdown.splitlines():
+        line = line.strip()
+        if not line:
+            continue
+        if line.startswith("# ") and not heading:
+            heading = re.sub(r"[*_`]", "", line[2:]).strip()
+            continue
+        if (line.startswith(("#", "!", "[", "<", "|", "-", ">", "```")) or
+            re.match(r"^\*\*(?:Português|English)\b", line, re.I)):
+            continue
+        summary = re.sub(r"\[([^]]+)\]\([^)]+\)", r"\1", line)
+        summary = re.sub(r"[*_`]", "", summary).strip()
+        if len(summary) >= 30:
+            return heading, summary, markdown[:1800]
+    return heading, "", markdown[:1800]
+
+def automatic_title(repo: dict, kind: str, heading: str, summary: str) -> str:
+    readable = re.sub(r"[._-]+", " ", repo["name"]).strip()
+    readable = re.sub(r"\s+pt[ -]?br\b", "", readable, flags=re.I).strip()
+    description = (repo.get("description") or "").strip()
+    # A descrição ou a frase de apresentação do README descrevem o projeto
+    # melhor do que o identificador técnico usado na URL do GitHub.
+    candidate = description or summary
+    if candidate and len(candidate) <= 140:
+        return candidate.rstrip(". ")
+    if heading and heading.casefold() != readable.casefold():
+        return heading
+    return f"Tradução PT-BR de {readable}" if kind == "Tradução" else readable if kind == "Projeto" else f"{kind}: {readable}"
+
 def sync_github_projects(curated: list[dict]) -> list[dict]:
     if os.environ.get("SYNC_GITHUB_REPOS") != "1":
         return []
@@ -86,14 +128,15 @@ def sync_github_projects(curated: list[dict]) -> list[dict]:
                 name.lower() == "forja-pixel" or name.lower() in known):
                 continue
             known.add(name.lower())
+            heading, summary, readme_intro = readme_summary(repo, headers)
             selected_topic = next((TOPIC_CATEGORIES[t] for t in (repo.get("topics") or []) if t in TOPIC_CATEGORIES), None)
-            category, kind = selected_topic or infer_category(repo)
+            category, kind = selected_topic or infer_category({**repo, "description": (repo.get("description") or "") + " " + readme_intro})
             readable = re.sub(r"[._-]+", " ", name).strip()
             readable = re.sub(r"\s+pt[ -]?br\b", "", readable, flags=re.I).strip()
-            title = f"Tradução PT-BR de {readable}" if kind == "Tradução" else readable if kind == "Projeto" else f"{kind}: {readable}"
+            title = automatic_title(repo, kind, heading, summary)
             projects.append({"slug": "github-" + name.lower(), "name": readable, "title": title,
                              "kind": kind, "category": category,
-                             "intro": repo.get("description") or "Projeto publicado no GitHub.",
+                             "intro": repo.get("description") or summary or "Projeto publicado no GitHub.",
                              "repo": repo["html_url"], "created_at": repo["created_at"], "automatic": True})
         if len(repos) < 100:
             break
